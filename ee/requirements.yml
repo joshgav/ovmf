@@ -1,0 +1,25 @@
+---
+collections:
+  # Red Hat Certified
+  - name: redhat.openshift
+    version: ">=4.0.0"
+  - name: redhat.openshift_virtualization
+  - name: ansible.netcommon
+  - name: ansible.platform
+  - name: infoblox.nios_modules
+  - name: vmware.vmware_rest
+  - name: ansible.controller
+  - name: ansible.posix
+  # Red Hat Validated
+  - name: infra.aap_utilities
+    version: "<2.6.1"
+  - name: infra.aap_configuration
+  - name: cloud.vmware_ops
+  # Community
+  - name: kubernetes.core
+  - name: community.crypto
+  - name: community.general
+  - name: community.vmware
+  # Ansible for OpenShift Virtualization Migration
+  - name: infra.openshift_virtualization_migration
+...

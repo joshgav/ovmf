@@ -1,0 +1,66 @@
+---
+# OpenShift Virtualization Migration Ansible Inventory
+
+all:
+  vars:
+    aap_execution_environment_image: quay.io/${$TBD}/ovmf:latest
+    controller_hostname: TBD-FQDN
+    aap_username: TBD
+    aap_password: TBD
+
+    container_host: quay.io/${TBD} # e.g. 'quay.io/example'
+    container_username: TBD
+    container_password: TBD
+    container_verify_ssl: false
+
+    ## AAP Project Configuration (repository URL and branch)
+    aap_project_repo: https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration.git
+    aap_project_branch: main
+
+    ## Git Credentials
+    ## https://github.com/settings/personal-access-tokens
+    git_username: TBD
+    git_password: TBD
+    # git_ssh_private_key:
+    # git_ssh_key_passphrase:
+
+    mtv_vmware_vddk_init_image: quay.io/${USER}/vddk:latest
+    vmware_host: TBD
+    vmware_username: TBD
+    vmware_password: TBD
+
+# OpenShift Virtualization Migration Inventory Groups
+#
+# OpenShift Virtualization Migration Bring Your Own (BYO) Ansible Automation Platform
+# If uncommented AAP will be configured separately and will not be deployed on the hub cluster
+## https://aap-aap.apps.ipi.aws.joshgav.com/access/users/2/tokens
+migration_aap:
+  hosts:
+    aap_host:
+      aap_username: TBD
+      aap_password: TBD
+      # aap_token: token
+      aap_hostname: TBD
+      aap_validate_certs: true
+
+# Migration Factory Hub cluster to configure
+migration_hub:
+  hosts:
+    # Friendly name of the Hub
+    hub.cluster.example.com:
+      # Host Variables
+
+      # OpenShift Variables for the Hub
+      openshift_host: TBD
+      openshift_temporary_api_key: TBD
+
+# Migration Factory Hub spokes to configure
+migration_spoke:
+  hosts:
+    # Friendly name of the Spoke
+    spoke.cluster.example.com:
+      # Host Variables
+
+      # OpenShift Variables for the Spoke
+      openshift_host: TBD
+      openshift_temporary_api_key: TBD
