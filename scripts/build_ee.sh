@@ -13,6 +13,7 @@ galaxy_token=${ANSIBLE_GALAXY_TOKEN}
 
 python -m venv ${HOME}/.venv/adt
 source ${HOME}/.venv/adt/bin/activate
+trap deactivate EXIT
 pip install --upgrade pip
 pip install ansible-dev-tools
 

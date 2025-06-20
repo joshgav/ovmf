@@ -4,27 +4,26 @@
 all:
   vars:
     aap_execution_environment_image: quay.io/${$TBD}/ovmf:latest
-    controller_hostname: TBD-FQDN
-    aap_username: TBD
-    aap_password: TBD
-
-    container_host: quay.io/${TBD} # e.g. 'quay.io/example'
+    mtv_vmware_vddk_init_image: quay.io/${USER}/vddk:latest
+    # this is repo for the EE and VDDK images
+    container_host: quay.io/${TBD} # e.g. 'quay.io/joshgav'
     container_username: TBD
     container_password: TBD
     container_verify_ssl: false
 
-    ## AAP Project Configuration (repository URL and branch)
+    controller_hostname: TBD-FQDN
+    aap_username: TBD
+    aap_password: TBD
+
+    ## source of Ansible artifacts in RH GitLab
     aap_project_repo: https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration.git
     aap_project_branch: main
-
-    ## Git Credentials
-    ## https://github.com/settings/personal-access-tokens
     git_username: TBD
     git_password: TBD
     # git_ssh_private_key:
     # git_ssh_key_passphrase:
 
-    mtv_vmware_vddk_init_image: quay.io/${USER}/vddk:latest
+    ## credentials for first VMware source provider (aka "target")
     vmware_host: TBD
     vmware_username: TBD
     vmware_password: TBD
@@ -33,7 +32,7 @@ all:
 #
 # OpenShift Virtualization Migration Bring Your Own (BYO) Ansible Automation Platform
 # If uncommented AAP will be configured separately and will not be deployed on the hub cluster
-## https://aap-aap.apps.ipi.aws.joshgav.com/access/users/2/tokens
+# get a token from https://${ansible_gateway_host}/access/users/2/tokens
 migration_aap:
   hosts:
     aap_host:

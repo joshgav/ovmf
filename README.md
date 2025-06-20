@@ -21,24 +21,42 @@ Follow these steps to build an execution environment ready to run Migration Fact
 
 ## To deploy content to an AAP instance
 
+- Create an EE per the instructions above
 - Copy and update secrets in `inventory/inventory.template.yml` to `inventory/inventory.yml`
-- Run the playbook in the `adt` venv created above:
-    ```bash
-    tag=${EE_TAG}
-    source ${HOME}/.venv/adt/bin/activate
-    trap deactivate EXIT
+- Run the `migration_factory_aap` playbook using the EE created above, see `./scripts/configure_aap.sh`
 
-    ansible-navigator run \
-        --eei=${tag} \
-        --mode=stdout \
-        --pp=missing \
-        /usr/share/ansible/collections/ansible_collections/infra/openshift_virtualization_migration/playbooks/migration_factory_aap.yml \
-        --pae false \
-        --inventory inventory/inventory.yml \
-        --inventory inventory/inventory-base.yml \
-        -e openshift_host=$(oc whoami --show-server) \
-        -e openshift_temporary_api_key=$(oc whoami -t)
-    ```
+## Run a Migration
+
+- Use the job template to create a provider for the VMware source (aka "target")
+- Use the job template to create mappings for the VMware source
+- Use the job template to create a migration plan, providing the following vars:
+
+```yaml
+mtv_migrate_migration_request:
+    mtv_namespace: openshift-mtv
+    target_namespace: vms
+    source: vmware
+    source_namespace: openshift-mtv
+    source_type: vsphere
+    destination: host
+    destination_namespace: openshift-mtv
+    destination_type: openshift
+    network_map: vmware-host
+    network_map_namespace: openshift-mtv
+    storage_map: vmware-host
+    storage_map_namespace: openshift-mtv
+    plan_name: first-migration
+
+    verify_plans_ready: true
+    start_migration: true
+    # split_plans: false
+    # vms_per_plan: 10
+    # verify_migrations_complete: false
+    vms:
+        - path: "/SDDC-Datacenter/vm/Workloads/sandbox-zm9fb/rhel-transfer01"
+    # folders:
+    #     - path: "/SDDC-Datacenter/vm/Workloads/sandbox-zm9fb"
+```
 
 ## Resources
 

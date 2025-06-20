@@ -5,3 +5,4 @@ inventory/inventory.yml
 ## these are added by ansible-builder
 ee/Containerfile
 ee/_build
+ansible-navigator.log
